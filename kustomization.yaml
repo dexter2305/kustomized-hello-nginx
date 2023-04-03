@@ -1,0 +1,44 @@
+
+namespace: lab
+
+commonLabels:
+  app: demo-nginx
+  lab: nginx
+
+generatorOptions: 
+  disableNameSuffixHash: true
+  labels:
+    type: generated
+
+configMapGenerator:
+- name: cm-from-file
+  files: 
+  - application.properties
+
+- name: cm-from-files-as-kv
+  envs:
+  - application.properties
+
+- name: cm-from-literals
+  literals:
+    - foo=bar
+    - number=1
+    - character='2'
+    - boolean=true
+
+secretGenerator:
+- name: sc-from-file
+  files:
+    - password.txt 
+
+- name: sc-from-file-as-kv
+  envs:
+    - password.txt
+
+- name: sc-from-literals
+  literals:
+    - admin=manage
+
+resources:
+- deployment.yaml
+- service.yml
